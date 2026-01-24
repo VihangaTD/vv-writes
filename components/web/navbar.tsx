@@ -8,7 +8,7 @@ export function NavBar() {
       <div className="flex items-center gap-8">
         <Link href="/">
           <h1 className="text-3xl font-bold">
-            Next<span className="text-blue-500">Pro</span>
+            VV<span className="text-blue-500">Writes</span>
           </h1>
         </Link>
       </div>
