@@ -9,7 +9,12 @@ const nextConfig: NextConfig = {
         hostname:"images.pexels.com",
         protocol:"https",
         port:"",
-      }
+      },
+      {
+        hostname:"ideal-bass-719.convex.cloud",
+        protocol:"https",
+        port:"",
+      },
     ]
   }
 };

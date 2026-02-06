@@ -35,10 +35,10 @@ async function LoadBlogList() {
                 <Card key={post._id} className="pt-0">
                     <div className="relative h-48 w-full overflow-hidden">
                         <Image 
-                        src="https://images.pexels.com/photos/2270328/pexels-photo-2270328.jpeg"
+                        src={post.imageUrl ?? "https://images.pexels.com/photos/2270328/pexels-photo-2270328.jpeg"}
                         alt="image"
                         fill
-                        className="rounded-t-lg"
+                        className="rounded-t-lg object-cover"
                         />
                     </div>
 
