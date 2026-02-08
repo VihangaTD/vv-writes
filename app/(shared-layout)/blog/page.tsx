@@ -8,6 +8,7 @@ import { Metadata } from "next";
 import { cacheLife, cacheTag } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
+import { connection } from "next/server";
 
 // export const dynamic = 'force-static'
 // 'auto' | 'force-dynamic' | 'error' | 'force-static'
@@ -46,10 +47,10 @@ export default function BlogPage() {
 
 async function LoadBlogList() {
     // await new Promise((resolve)=>setTimeout(resolve,3000))
-    // await connection();
-    "use cache";
-    cacheLife("hours");
-    cacheTag("blog");
+    await connection();
+    // "use cache";
+    // cacheLife("hours");
+    // cacheTag("blog");
     const data = await fetchQuery(api.posts.getPosts);
 
     return (
