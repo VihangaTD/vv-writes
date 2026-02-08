@@ -1,8 +1,10 @@
 import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import CommentSection from "@/components/web/CommentSection";
+import { PostPresence } from "@/components/web/PostPresence";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
+import { getToken } from "@/lib/auth-server";
 import { fetchQuery, preloadQuery } from "convex/nextjs";
 import { ArrowLeft } from "lucide-react";
 import { Metadata } from "next";
@@ -15,32 +17,36 @@ interface PostIdRouteProps {
   }>;
 }
 
-export async function generateMetadata({params}:PostIdRouteProps):Promise<Metadata>{
-  const {postId} = await params;
+export async function generateMetadata({
+  params,
+}: PostIdRouteProps): Promise<Metadata> {
+  const { postId } = await params;
 
   const post = await fetchQuery(api.posts.getPostById, { postId: postId });
 
   if (!post) {
-    return{
-      title:'Post not found',
-    }
+    return {
+      title: "Post not found",
+    };
   }
 
   return {
-    title:post.title,
-    description:post.body,
-  }
+    title: post.title,
+    description: post.body,
+  };
 }
 
 export default async function PostIdRoute({ params }: PostIdRouteProps) {
   const { postId } = await params;
+  const token = await getToken();
 
-  const [post,preloadedComments] = await Promise.all([
+  const [post, preloadedComments, userId] = await Promise.all([
     await fetchQuery(api.posts.getPostById, { postId: postId }),
     await preloadQuery(api.comments.getCommentsByPostId, {
-      postId:postId,
-    })
-  ])
+      postId: postId,
+    }),
+    await fetchQuery(api.presence.getUserId,{},{token}),
+  ]);
 
   // const post = await fetchQuery(api.posts.getPostById, { postId: postId });
   // const preloadedComments = await preloadQuery(api.comments.getCommentsByPostId, {
@@ -58,7 +64,10 @@ export default async function PostIdRoute({ params }: PostIdRouteProps) {
   }
   return (
     <div className="max-w-3xl mx-auto py-8 px-4 animate-in fade-in duration-500 relative">
-      <Link className={buttonVariants({ variant: "outline", className:"mb-4" })} href="/blog">
+      <Link
+        className={buttonVariants({ variant: "outline", className: "mb-4" })}
+        href="/blog"
+      >
         <ArrowLeft className="size-4 " />
         Back to blog
       </Link>
@@ -75,15 +84,23 @@ export default async function PostIdRoute({ params }: PostIdRouteProps) {
       </div>
       <div className="space-y-4 flex flex-col">
         <h1 className="text-4xl font-bold tracking-tight text-foreground">
-            {post.title}
+          {post.title}
         </h1>
-        <p className="text-sm text-muted-foreground">Posted on: {new Date(post._creationTime).toLocaleDateString("en-US")}</p>
+        <div className="flex items-center gap-2">
+          <p className="text-sm text-muted-foreground">
+            Posted on:{" "}
+            {new Date(post._creationTime).toLocaleDateString("en-US")}
+          </p>
+          {userId && <PostPresence roomId={post._id} userId={userId}/>}
+        </div>
       </div>
-      <Separator className="my-8"/>
-      <p className="text-lg leading-relaxed text-foreground/90 whitespace-pre-wrap">{post.body}</p>
-      <Separator className="my-8"/>
+      <Separator className="my-8" />
+      <p className="text-lg leading-relaxed text-foreground/90 whitespace-pre-wrap">
+        {post.body}
+      </p>
+      <Separator className="my-8" />
 
-      <CommentSection preloadedComments={preloadedComments}/>
+      <CommentSection preloadedComments={preloadedComments} />
     </div>
   );
 }
