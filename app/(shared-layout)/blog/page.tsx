@@ -40,7 +40,7 @@ export default function BlogPage() {
 }
 
 async function LoadBlogList() {
-    await new Promise((resolve)=>setTimeout(resolve,5000))
+    // await new Promise((resolve)=>setTimeout(resolve,3000))
     const data = await fetchQuery(api.posts.getPosts);
 
     return (
