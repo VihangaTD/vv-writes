@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -52,7 +53,7 @@ export default function SignUpPage() {
     return(
         <Card>
             <CardHeader>
-                <CardTitle>Sign Up</CardTitle>
+                <CardTitle className="text-3xl font-bold">Sign Up</CardTitle>
                 <CardDescription>Create an account to get started</CardDescription>
             </CardHeader>
             <CardContent>
@@ -95,6 +96,7 @@ export default function SignUpPage() {
                         )}</Button>
                     </FieldGroup>
                 </form>
+                <p className="text-sm text-center mt-4 text-muted-foreground">Already have an account?  <Link href="/auth/login" className="hover:text-white">Log in</Link></p>
             </CardContent>
         </Card>
     )

@@ -55,13 +55,12 @@ export default function CommentSection(props: {
     <Card>
         <CardHeader className="flex flex-row items-center gap-2 border-b">
             <MessagesSquare className="size-5"/>
-            <h2 className="text-xl font-bold">{data.length} Comments</h2>
+            <h2 className="text-lg md:text-xl font-bold">{data.length} Comments</h2>
         </CardHeader>
         <CardContent className="space-y-8">
             <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
                 <Controller name="body" control={form.control} render={({field, fieldState}) =>(
                     <Field>
-                        <FieldLabel>Full Name</FieldLabel>
                         <Textarea aria-invalid={fieldState.invalid} placeholder="Share your thoughts" {...field}/>
                         {fieldState.invalid && (
                             <FieldError errors={[fieldState.error]} />

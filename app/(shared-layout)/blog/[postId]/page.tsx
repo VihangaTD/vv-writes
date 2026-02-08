@@ -76,7 +76,7 @@ export default async function PostIdRoute({ params }: PostIdRouteProps) {
         <ArrowLeft className="size-4 " />
         Back to blog
       </Link>
-      <div className="relative w-full h-[400px] mb-8 rounded-xl overflow-hidden shadow-sm">
+      <div className="relative w-full h-[200px] md:h-[400px] mb-8 rounded-xl overflow-hidden shadow-sm">
         <Image
           src={
             post.imageUrl ??
@@ -88,7 +88,7 @@ export default async function PostIdRoute({ params }: PostIdRouteProps) {
         />
       </div>
       <div className="space-y-4 flex flex-col">
-        <h1 className="text-4xl font-bold tracking-tight text-foreground">
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
           {post.title}
         </h1>
         <div className="flex items-center gap-2">
@@ -100,7 +100,7 @@ export default async function PostIdRoute({ params }: PostIdRouteProps) {
         </div>
       </div>
       <Separator className="my-8" />
-      <p className="text-lg leading-relaxed text-foreground/90 whitespace-pre-wrap">
+      <p className="md:text-lg leading-relaxed text-foreground/90 whitespace-pre-wrap">
         {post.body}
       </p>
       <Separator className="my-8" />

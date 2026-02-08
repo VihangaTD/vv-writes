@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { authClient } from "@/lib/auth-client"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { Controller, useForm } from "react-hook-form"
@@ -48,7 +49,7 @@ export default function LoginPage() {
   return (
     <Card>
             <CardHeader>
-                <CardTitle>Log In</CardTitle>
+                <CardTitle className="text-3xl font-bold">Log In</CardTitle>
                 <CardDescription>Login to get started right away</CardDescription>
             </CardHeader>
             <CardContent>
@@ -82,6 +83,7 @@ export default function LoginPage() {
                         )}</Button>
                     </FieldGroup>
                 </form>
+                <p className="text-sm text-center mt-4 text-muted-foreground">Don't you have an account? <Link href="/auth/signup" className="hover:text-white">Sign up</Link></p>
             </CardContent>
         </Card>
   )
