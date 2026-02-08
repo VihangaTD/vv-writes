@@ -1,14 +1,13 @@
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import SearchInput from "@/components/web/SearchInput";
 import { api } from "@/convex/_generated/api";
 import { fetchQuery } from "convex/nextjs";
 import { Metadata } from "next";
 import { cacheLife, cacheTag } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
-import { connection } from "next/server";
-import { Suspense } from "react";
 
 // export const dynamic = 'force-static'
 // 'auto' | 'force-dynamic' | 'error' | 'force-static'
@@ -27,9 +26,13 @@ export default function BlogPage() {
 
   return (
     <div className="py-12">
-        <div className="text-center pb-12">
+        <div className="text-center pb-8">
             <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">Our Blog</h1>
             <p className="pt-4 max-w-2xl mx-auto text-xl text-muted-foreground">Insights, thoughts, and trends from our team.</p>
+        </div>
+
+        <div className="md:hidden pb-8">
+            <SearchInput/>
         </div>
 
         {/* <Suspense 

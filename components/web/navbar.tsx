@@ -8,10 +8,10 @@ import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import SearchInput from "./SearchInput";
+import MobileDropMenu from "./mobileDropMenu";
 
 export function NavBar() {
-
-  const {isAuthenticated,isLoading} = useConvexAuth();
+  const { isAuthenticated, isLoading } = useConvexAuth();
   const router = useRouter();
 
   return (
@@ -23,34 +23,59 @@ export function NavBar() {
           </h1>
         </Link>
       </div>
-      <div className="flex items-center gap-2">
-        <Link className={buttonVariants({variant:"ghost"})} href="/">Home</Link>
-        <Link className={buttonVariants({variant:"ghost"})} href="/blog">Blog</Link>
-        <Link className={buttonVariants({variant:"ghost"})} href="/create">Create</Link>
+      <div className="hidden md:flex items-center gap-2">
+        <Link className={buttonVariants({ variant: "ghost" })} href="/">
+          Home
+        </Link>
+        <Link className={buttonVariants({ variant: "ghost" })} href="/blog">
+          Blog
+        </Link>
+        <Link className={buttonVariants({ variant: "ghost" })} href="/create">
+          Create
+        </Link>
       </div>
       <div className="flex items-center gap-2">
-        <div className="hidden md:block mr-2">
-          <SearchInput/>
+        <div className="hidden md:flex">
+          <div className="block mr-2">
+            <SearchInput />
+          </div>
+          {isLoading ? null : isAuthenticated ? (
+            <Button
+              onClick={() =>
+                authClient.signOut({
+                  fetchOptions: {
+                    onSuccess: () => {
+                      toast.success("Logged out successfully");
+                      router.push("/");
+                    },
+                    onError: (error) => {
+                      toast.error(error.error.message);
+                    },
+                  },
+                })
+              }
+            >
+              Log out
+            </Button>
+          ) : (
+            <div className="flex gap-2">
+              <Link className={buttonVariants()} href="/auth/signup">
+                Sign up
+              </Link>
+              <Link
+                className={buttonVariants({ variant: "outline" })}
+                href="/auth/login"
+              >
+                Login
+              </Link>
+            </div>
+          )}
         </div>
-      {isLoading? null : isAuthenticated ? (
-        <Button onClick={()=>authClient.signOut({
-          fetchOptions: {
-            onSuccess:()=>{
-              toast.success("Logged out successfully");
-              router.push("/");
-            },
-            onError:(error)=>{
-              toast.error(error.error.message);
-            }
-          }
-        })}>Log out</Button>
-      ):(
-        <>
-          <Link className={buttonVariants()} href="/auth/signup">Sign up</Link>
-          <Link className={buttonVariants({variant:"outline"})} href="/auth/login">Login</Link>
-        </>
-      )}
-        <ThemeToggle/>
+
+        <ThemeToggle />
+        <div className="flex md:hidden">
+         <MobileDropMenu/>
+        </div>
       </div>
     </nav>
   );
