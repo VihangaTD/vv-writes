@@ -9,6 +9,7 @@ import { cacheLife, cacheTag } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 import { connection } from "next/server";
+import { Suspense } from "react";
 
 // export const dynamic = 'force-static'
 // 'auto' | 'force-dynamic' | 'error' | 'force-static'
@@ -36,11 +37,11 @@ export default function BlogPage() {
             <SearchInput/>
         </div>
 
-        {/* <Suspense 
+        <Suspense 
             fallback={<SkeletonLoadingUi/>}
-        > */}
+        >
             <LoadBlogList/>
-        {/* </Suspense> */}
+        </Suspense>
     </div>
   )
 }
