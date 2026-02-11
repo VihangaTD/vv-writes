@@ -20,6 +20,9 @@ export const metadata: Metadata = {
     default: "VV-Writes",
     template:"%s | VV-Writes",
   },
+  icons: {
+    icon: "/favicon .png",
+  },
   description: "A place for ideas, trends, and knowledge shared by curious minds from our community who enjoy learning, sharing, and growing together.",
 };
 
