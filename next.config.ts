@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
         port:"",
       },
       {
-        hostname:"ideal-bass-719.convex.cloud",
+        hostname:"kindly-hippopotamus-908.eu-west-1.convex.cloud",
         protocol:"https",
         port:"",
       },
