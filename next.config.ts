@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
         port:"",
       },
       {
-        hostname:"groovy-setter-318.convex.cloud",
+        hostname:"ideal-bass-719.convex.cloud",
         protocol:"https",
         port:"",
       },
